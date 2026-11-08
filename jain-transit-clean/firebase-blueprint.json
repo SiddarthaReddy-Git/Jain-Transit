@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing authentication details, roles, and profile information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["STUDENT", "DRIVER", "ADMIN"] },
+        "phone": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["email", "fullName", "role"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Bus reservation made by students for campus transit.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "busId": { "type": "number" },
+        "busNumber": { "type": "string" },
+        "destination": { "type": "string" },
+        "seatNumber": { "type": "number" },
+        "travelType": { "type": "string", "enum": ["NORMAL", "EMERGENCY"] },
+        "bookingTime": { "type": "string" },
+        "status": { "type": "string", "enum": ["CONFIRMED", "CANCELLED", "BOARDED"] },
+        "bayNumber": { "type": "string" }
+      },
+      "required": ["busId", "studentName", "destination", "status"]
+    },
+    "EmergencyRequest": {
+      "title": "EmergencyRequest",
+      "description": "Urgent SOS travel requests submitted by students or campus staff.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "destination": { "type": "string" },
+        "reason": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING", "ACKNOWLEDGED", "ASSIGNED", "IN_PROGRESS", "COMPLETED", "CANCELLED"] },
+        "assignedBusId": { "type": "number" },
+        "assignedBusNumber": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["destination", "reason", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User directory mapping auth UIDs to personal transit profiles and roles."
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Live shuttle bookings and seat allocations for campus buses."
+    },
+    "/emergencies/{emergencyId}": {
+      "schema": "EmergencyRequest",
+      "description": "SOS emergency ride requests requiring dispatch triage."
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Jain Transit",
+  "description": "Smarter journeys and faster departures for Jain University campus commuters, featuring live driver GPS, stop-by-stop route checklists, occupancy meters, and bay departure announcements.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
